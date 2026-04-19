@@ -1,873 +1,157 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Art & Climate Change — Khushdeep Bhatti</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500&family=Permanent+Marker&display=swap" rel="stylesheet"/>
 <style>
-:root {
---ink: #0f0e0c;
---cream: #f5f0e8;
---warm: #f0e6d3;
---rust: #c94f2a;
---olive: #5a6e3a;
---sky: #3a6b8a;
---gold: #c9a84c;
---muted: #7a7265;
---spray: #e8f4f0;
-}
-
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-
-html { scroll-behavior: smooth; }
-
-
-body {
-font-family: 'DM Sans', sans-serif;
-background: var(--cream);
-color: var(--ink);
-overflow-x: hidden;
-}
-
-
-/* ── NOISE TEXTURE OVERLAY ── */
-body::before {
-content: '';
-position: fixed;
-inset: 0;
-background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-pointer-events: none;
-z-index: 1000;
-opacity: 0.5;
-}
-
-
-/* ── NAV ── */
-nav {
-position: fixed;
-top: 0; left: 0; right: 0;
-z-index: 100;
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 1.2rem 3rem;
-background: rgba(245, 240, 232, 0.88);
-backdrop-filter: blur(12px);
-border-bottom: 1px solid rgba(15,14,12,0.08);
-}
-nav .logo {
-font-family: 'Playfair Display', serif;
-font-size: 1.1rem;
-font-weight: 700;
-letter-spacing: 0.02em;
-}
-nav ul {
-list-style: none;
-display: flex;
-gap: 2.5rem;
-}
-nav ul a {
-text-decoration: none;
-color: var(--muted);
-font-size: 0.85rem;
-font-weight: 500;
-letter-spacing: 0.08em;
-text-transform: uppercase;
-transition: color 0.2s;
-}
-nav ul a:hover { color: var(--rust); }
-
-
-/* ── HERO ── */
-.hero {
-min-height: 100vh;
-display: grid;
-grid-template-columns: 1fr 1fr;
-position: relative;
-overflow: hidden;
-}
-
-
-.hero-left {
-background: var(--ink);
-display: flex;
-flex-direction: column;
-justify-content: flex-end;
-padding: 6rem 4rem 5rem;
-position: relative;
-overflow: hidden;
-}
-
-
-/* spray paint drip effect */
-.hero-left::before {
-content: '';
-position: absolute;
-top: 0; left: 0; right: 0; bottom: 0;
-background:
-radial-gradient(ellipse 60% 40% at 20% 30%, rgba(201,79,42,0.25) 0%, transparent 70%),
-radial-gradient(ellipse 40% 60% at 80% 70%, rgba(58,107,138,0.2) 0%, transparent 70%),
-radial-gradient(ellipse 50% 30% at 50% 10%, rgba(201,168,76,0.15) 0%, transparent 70%);
-}
-
-
-.hero-tag {
-font-size: 0.75rem;
-font-weight: 500;
-letter-spacing: 0.15em;
-text-transform: uppercase;
-color: var(--gold);
-margin-bottom: 1.5rem;
-position: relative;
-}
-
-
-.hero-title {
-font-family: 'Playfair Display', serif;
-font-size: clamp(3rem, 5vw, 5.5rem);
-font-weight: 900;
-line-height: 1.0;
-color: var(--cream);
-position: relative;
-margin-bottom: 2rem;
-}
-
-
-.hero-title em {
-font-style: italic;
-color: var(--rust);
-}
-
-
-.hero-byline {
-font-size: 0.9rem;
-color: rgba(245,240,232,0.5);
-position: relative;
-letter-spacing: 0.05em;
-}
-
-
-.hero-right {
-background: var(--rust);
-display: flex;
-flex-direction: column;
-justify-content: center;
-padding: 8rem 4rem 5rem;
-position: relative;
-overflow: hidden;
-}
-
-
-.hero-right::before {
-content: '';
-position: absolute;
-inset: 0;
-background:
-radial-gradient(ellipse 80% 60% at 100% 0%, rgba(201,168,76,0.3) 0%, transparent 60%),
-radial-gradient(ellipse 50% 80% at 0% 100%, rgba(15,14,12,0.2) 0%, transparent 60%);
-}
-
-
-.hero-question {
-font-family: 'Playfair Display', serif;
-font-size: clamp(1.4rem, 2.5vw, 2.2rem);
-font-weight: 400;
-font-style: italic;
-color: var(--cream);
-line-height: 1.5;
-position: relative;
-margin-bottom: 2.5rem;
-}
-
-
-.hero-intro {
-font-size: 1rem;
-line-height: 1.8;
-color: rgba(245,240,232,0.85);
-position: relative;
-max-width: 42ch;
-}
-
-
-.scroll-hint {
-position: absolute;
-bottom: 2.5rem;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 0.5rem;
-color: rgba(245,240,232,0.4);
-font-size: 0.7rem;
-letter-spacing: 0.1em;
-text-transform: uppercase;
-animation: bounce 2s infinite;
-}
-.scroll-hint::after {
-content: '↓';
-font-size: 1.2rem;
-}
-@keyframes bounce {
-0%, 100% { transform: translateX(-50%) translateY(0); }
-50% { transform: translateX(-50%) translateY(6px); }
-}
-
-
-/* ── SECTIONS ── */
-section { padding: 7rem 0; }
-
-
-.container {
-max-width: 1100px;
-margin: 0 auto;
-padding: 0 3rem;
-}
-
-
-.section-label {
-font-size: 0.72rem;
-font-weight: 500;
-letter-spacing: 0.2em;
-text-transform: uppercase;
-color: var(--rust);
-margin-bottom: 1rem;
-display: flex;
-align-items: center;
-gap: 0.8rem;
-}
-.section-label::before {
-content: '';
-width: 2rem;
-height: 1px;
-background: var(--rust);
-}
-
-
-.section-title {
-font-family: 'Playfair Display', serif;
-font-size: clamp(2rem, 3.5vw, 3.2rem);
-font-weight: 700;
-line-height: 1.15;
-margin-bottom: 1.5rem;
-}
-
-
-/* ── PROBLEM SECTION ── */
-.problem { background: var(--warm); }
-
-
-.problem-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 5rem;
-align-items: center;
-margin-top: 4rem;
-}
-
-
-.problem-text p {
-font-size: 1.05rem;
-line-height: 1.9;
-color: #3a3630;
-margin-bottom: 1.5rem;
-}
-
-
-.stat-stack {
-display: flex;
-flex-direction: column;
-gap: 1.5rem;
-}
-
-
-.stat-card {
-background: var(--ink);
-color: var(--cream);
-padding: 2rem 2.5rem;
-position: relative;
-overflow: hidden;
-}
-.stat-card::before {
-content: '';
-position: absolute;
-left: 0; top: 0; bottom: 0;
-width: 4px;
-background: var(--rust);
-}
-.stat-num {
-font-family: 'Playfair Display', serif;
-font-size: 3.5rem;
-font-weight: 900;
-color: var(--rust);
-line-height: 1;
-margin-bottom: 0.5rem;
-}
-.stat-label {
-font-size: 0.9rem;
-color: rgba(245,240,232,0.7);
-line-height: 1.5;
-}
-
-
-/* ── ARTISTS SECTION ── */
-.artists { background: var(--cream); }
-
-
-.artists-intro {
-max-width: 65ch;
-font-size: 1.1rem;
-line-height: 1.85;
-color: #3a3630;
-margin-bottom: 4rem;
-}
-
-
-.artist-grid {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 0;
-border: 1px solid rgba(15,14,12,0.12);
-}
-
-
-.artist-card {
-padding: 2.5rem;
-border-right: 1px solid rgba(15,14,12,0.12);
-position: relative;
-transition: background 0.3s;
-}
-.artist-card:last-child { border-right: none; }
-.artist-card:hover { background: var(--warm); }
-
-
-.artist-icon {
-font-size: 2.5rem;
-margin-bottom: 1.2rem;
-display: block;
-}
-
-
-.artist-name {
-font-family: 'Playfair Display', serif;
-font-size: 1.4rem;
-font-weight: 700;
-margin-bottom: 0.5rem;
-}
-
-
-.artist-tag {
-font-size: 0.72rem;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-color: var(--rust);
-font-weight: 500;
-margin-bottom: 1.2rem;
-}
-
-
-.artist-desc {
-font-size: 0.95rem;
-line-height: 1.75;
-color: var(--muted);
-}
-
-
-/* ── PULLQUOTE ── */
-.pullquote-section {
-background: var(--olive);
-padding: 6rem 0;
-}
-
-
-.pullquote {
-max-width: 800px;
-margin: 0 auto;
-text-align: center;
-padding: 0 3rem;
-}
-
-
-.pullquote blockquote {
-font-family: 'Playfair Display', serif;
-font-size: clamp(1.5rem, 3vw, 2.4rem);
-font-weight: 400;
-font-style: italic;
-color: var(--cream);
-line-height: 1.5;
-margin-bottom: 1.5rem;
-}
-
-
-.pullquote cite {
-font-size: 0.8rem;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-color: rgba(245,240,232,0.55);
-font-style: normal;
-}
-
-
-/* ── RESEARCH SECTION ── */
-.research { background: var(--ink); }
-
-
-.research .section-label { color: var(--gold); }
-.research .section-label::before { background: var(--gold); }
-.research .section-title { color: var(--cream); }
-
-
-.research-intro {
-font-size: 1.05rem;
-line-height: 1.85;
-color: rgba(245,240,232,0.65);
-max-width: 60ch;
-margin-bottom: 4rem;
-}
-
-
-.source-list {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 1.5px;
-background: rgba(245,240,232,0.08);
-}
-
-
-.source-card {
-background: var(--ink);
-padding: 2.5rem;
-border-left: 3px solid transparent;
-transition: border-color 0.3s, background 0.3s;
-}
-.source-card:hover {
-border-left-color: var(--gold);
-background: rgba(245,240,232,0.03);
-}
-
-
-.source-num {
-font-family: 'Playfair Display', serif;
-font-size: 2rem;
-font-weight: 900;
-color: rgba(201,168,76,0.3);
-margin-bottom: 0.8rem;
-line-height: 1;
-}
-
-
-.source-title {
-font-family: 'Playfair Display', serif;
-font-size: 1.05rem;
-font-weight: 700;
-color: var(--cream);
-margin-bottom: 0.4rem;
-line-height: 1.3;
-}
-
-
-.source-author {
-font-size: 0.78rem;
-letter-spacing: 0.08em;
-text-transform: uppercase;
-color: var(--gold);
-margin-bottom: 1rem;
-}
-
-
-.source-body {
-font-size: 0.9rem;
-line-height: 1.75;
-color: rgba(245,240,232,0.55);
-}
-
-
-/* ── REFLECTION SECTION ── */
-.reflection { background: var(--sky); }
-.reflection .section-label { color: var(--cream); opacity: 0.7; }
-.reflection .section-label::before { background: rgba(245,240,232,0.5); }
-.reflection .section-title { color: var(--cream); }
-
-
-.reflection-grid {
-display: grid;
-grid-template-columns: 3fr 2fr;
-gap: 5rem;
-align-items: start;
-margin-top: 3rem;
-}
-
-
-.reflection-body p {
-font-size: 1.05rem;
-line-height: 1.9;
-color: rgba(245,240,232,0.88);
-margin-bottom: 1.5rem;
-}
-
-
-.reflection-callouts {
-display: flex;
-flex-direction: column;
-gap: 1.5rem;
-}
-
-
-.callout {
-background: rgba(245,240,232,0.1);
-border: 1px solid rgba(245,240,232,0.2);
-padding: 1.8rem;
-backdrop-filter: blur(4px);
-}
-
-
-.callout-q {
-font-family: 'Playfair Display', serif;
-font-size: 1rem;
-font-style: italic;
-color: var(--cream);
-line-height: 1.5;
-margin-bottom: 0.6rem;
-}
-
-
-.callout-a {
-font-size: 0.85rem;
-color: rgba(245,240,232,0.6);
-line-height: 1.6;
-}
-
-
-/* ── ACTION SECTION ── */
-.action {
-background: var(--rust);
-padding: 6rem 0;
-text-align: center;
-}
-
-
-.action .section-title {
-color: var(--cream);
-font-size: clamp(2rem, 4vw, 3.5rem);
-margin-bottom: 1.5rem;
-}
-
-
-.action-body {
-font-size: 1.1rem;
-line-height: 1.8;
-color: rgba(245,240,232,0.85);
-max-width: 55ch;
-margin: 0 auto 3rem;
-}
-
-
-.action-steps {
-display: flex;
-justify-content: center;
-gap: 1.5rem;
-flex-wrap: wrap;
-}
-
-
-.action-step {
-background: rgba(245,240,232,0.15);
-border: 1px solid rgba(245,240,232,0.3);
-padding: 1.5rem 2rem;
-color: var(--cream);
-font-size: 0.9rem;
-line-height: 1.6;
-max-width: 220px;
-text-align: left;
-transition: background 0.3s;
-}
-.action-step:hover { background: rgba(245,240,232,0.22); }
-
-
-.action-step-num {
-font-family: 'Playfair Display', serif;
-font-size: 2rem;
-font-weight: 900;
-color: rgba(245,240,232,0.35);
-display: block;
-margin-bottom: 0.5rem;
-}
-
-
-/* ── FOOTER ── */
-footer {
-background: var(--ink);
-padding: 3rem;
-display: flex;
-justify-content: space-between;
-align-items: center;
-flex-wrap: wrap;
-gap: 1rem;
-}
-
-
-footer .footer-name {
-font-family: 'Playfair Display', serif;
-font-size: 1rem;
-color: var(--cream);
-}
-
-
-footer .footer-class {
-font-size: 0.8rem;
-color: var(--muted);
-letter-spacing: 0.06em;
-}
-
-
-/* ── ANIMATIONS ── */
-.reveal {
-opacity: 0;
-transform: translateY(30px);
-transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.visible {
-opacity: 1;
-transform: translateY(0);
-}
-
-
-/* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-nav { padding: 1rem 1.5rem; }
-nav ul { gap: 1.2rem; }
-.hero { grid-template-columns: 1fr; min-height: auto; }
-.hero-left, .hero-right { padding: 5rem 2rem 3rem; }
-.hero-left { min-height: 60vh; }
-.problem-grid { grid-template-columns: 1fr; gap: 3rem; }
-.artist-grid { grid-template-columns: 1fr; }
-.artist-card { border-right: none; border-bottom: 1px solid rgba(15,14,12,0.12); }
-.source-list { grid-template-columns: 1fr; }
-.reflection-grid { grid-template-columns: 1fr; gap: 3rem; }
-.container { padding: 0 1.5rem; }
-section { padding: 5rem 0; }
-}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #1a1a1a; color: #f0ece4; }
+
+  nav { background: #111; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #c94f2a; }
+  nav .logo { font-family: 'Bebas Neue', sans-serif; color: #f0ece4; font-size: 1.4rem; letter-spacing: 0.1em; }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul a { color: #7a7265; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  nav ul a:hover { color: #c94f2a; }
+
+  .hero { background: #111; padding: 6rem 2rem; text-align: center; position: relative; overflow: hidden; border-bottom: 4px solid #c94f2a; }
+  .hero::before { content: 'ART'; position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 20rem; color: rgba(201,79,42,0.06); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; white-space: nowrap; }
+  .hero-tag { color: #c9a84c; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem; }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 7rem); color: #f0ece4; line-height: 1; margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+  .hero h1 span { color: #c94f2a; }
+  .hero-sub { font-family: 'Permanent Marker', cursive; font-size: clamp(1rem, 2vw, 1.3rem); color: #c9a84c; margin-bottom: 1.5rem; transform: rotate(-1deg); display: inline-block; }
+  .hero p { color: rgba(240,236,228,0.6); font-size: 1rem; max-width: 50ch; margin: 0 auto; line-height: 1.7; }
+
+  .spray-border { height: 6px; background: repeating-linear-gradient(90deg, #c94f2a, #c94f2a 10px, transparent 10px, transparent 20px); }
+
+  .section-wrap { padding: 5rem 2rem; }
+  .section-wrap.dark { background: #111; }
+  .section-wrap.warm { background: #1e1a16; }
+  .section-wrap.rust { background: #c94f2a; }
+
+  .inner { max-width: 900px; margin: 0 auto; }
+
+  .label { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.2em; color: #c94f2a; margin-bottom: 0.5rem; }
+  .section-wrap.rust .label { color: rgba(240,236,228,0.7); }
+  .section-wrap.dark .label { color: #c9a84c; }
+
+  h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1.5rem; line-height: 1; letter-spacing: 0.03em; color: #f0ece4; }
+
+  p { font-size: 1rem; line-height: 1.85; color: rgba(240,236,228,0.75); margin-bottom: 1.2rem; }
+  .section-wrap.rust p { color: rgba(240,236,228,0.9); }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.5rem; }
+  .stat { background: #111; padding: 2rem; border-left: 4px solid #c94f2a; border-bottom: 2px solid #c94f2a; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: #c94f2a; line-height: 1; margin-bottom: 0.5rem; }
+  .stat-text { font-size: 0.85rem; color: rgba(240,236,228,0.55); line-height: 1.5; }
+
+  .action-steps { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
+  .step { background: rgba(240,236,228,0.1); border: 2px solid rgba(240,236,228,0.25); padding: 1.5rem; max-width: 240px; color: #f0ece4; font-size: 0.9rem; line-height: 1.6; }
+  .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: rgba(240,236,228,0.25); display: block; margin-bottom: 0.5rem; }
+
+  .cite-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .cite-item { border-left: 3px solid #c94f2a; padding: 1rem 1.5rem; background: #1a1a1a; }
+  .cite-item p { font-size: 0.88rem; color: rgba(240,236,228,0.6); margin: 0; line-height: 1.7; }
+  .cite-item p strong { color: #c9a84c; font-weight: 500; }
+
+  footer { background: #111; padding: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-top: 3px solid #c94f2a; }
+  footer .name { font-family: 'Bebas Neue', sans-serif; color: #f0ece4; font-size: 1.1rem; letter-spacing: 0.05em; }
+  footer .class { font-size: 0.8rem; color: #7a7265; }
+
+  @media (max-width: 680px) {
+    .stats { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+    .action-steps { flex-direction: column; align-items: center; }
+  }
 </style>
 </head>
 <body>
 
-
-<!-- NAV -->
 <nav>
-<div class="logo">Art & Activism</div>
-<ul>
-<li><a href="#problem">The Problem</a></li>
-<li><a href="#artists">Artists</a></li>
-<li><a href="#research">Research</a></li>
-<li><a href="#reflection">Reflection</a></li>
-<li><a href="#action">Take Action</a></li>
-</ul>
+  <div class="logo">Art & Activism</div>
+  <ul>
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#action">Action</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ul>
 </nav>
 
+<div class="hero">
+  <div class="hero-tag">Khushdeep Bhatti · COMP 106 · 2026</div>
+  <h1>When <span>Art</span> Does<br>What Facts Cannot</h1>
+  <div class="hero-sub">a personal look at art, climate change and why data alone just doesn't cut it</div>
+  <p>Most people are aware that climate change is an issue, however no one has ever been truly affected by it. That is the question I am attempting to answer.</p>
+</div>
 
-<!-- HERO -->
-<section class="hero">
-<div class="hero-left">
-<div class="hero-tag">Khushdeep Bhatti · COMP 106 · 2026</div>
-<h1 class="hero-title">When <em>Art</em> Does What Facts Cannot</h1>
-<p class="hero-byline">A personal exploration of art, climate change & emotional truth</p>
-</div>
-<div class="hero-right">
-<p class="hero-question">"Why does a mural move us in ways a scientific report never could?"</p>
-<p class="hero-intro">Most people know climate change is real. Most people also do nothing about it. This project explores why — and how art might be the only language capable of closing that gap.</p>
-</div>
-<div class="scroll-hint">Scroll</div>
-</section>
+<div class="spray-border"></div>
 
+<div class="section-wrap warm" id="problem">
+  <div class="inner">
+    <div class="label">The Problem</div>
+    <h2>We Know. We Don't Feel.</h2>
+    <p>The public observes climate change due to the widespread reporting on the way oceans rise and forests burn, but the general apathy of people reflects the disconnect between nature and humanity. Most people are aware that climate change is an issue, however no one has ever been truly affected by it.</p>
+    <p>The perception of climate change contains a sense of distance, while art contains a sense of emotional proximity. Seeing a mural or hearing a song moves you in a way that reading a report never does. I think art may be one of the only forms of communication capable of making people feel for climate change when simply stating the facts will not.</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">97%</div>
+        <div class="stat-text">of scientists agree on climate change yet public concern remains dramatically lower</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">900</div>
+        <div class="stat-text">participants at the 2015 UN Climate Summit showed art created stronger emotional responses than data alone</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2 acres</div>
+        <div class="stat-text">of wheat planted by Agnes Denes in 1982 on Manhattan land worth $1 billion as a protest against global warming</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- THE PROBLEM -->
-<section class="problem" id="problem">
-<div class="container">
-<div class="section-label">The Problem</div>
-<h2 class="section-title reveal">We Know. We Don't Feel.</h2>
-<div class="problem-grid">
-<div class="problem-text reveal">
-<p>Climate change is one of the most documented crises in human history. We have the data, the graphs, the projections. And yet most people remain emotionally distant from it — treating it like something happening somewhere else, to someone else, at some other time.</p>
-<p>This is the paradox that first drew me to this topic. How can something so enormous feel so abstract? And more importantly — what kind of communication actually breaks through that wall?</p>
-<p>My answer, after months of research: <strong>art.</strong> Not because art is more accurate than science, but because art operates on a completely different level — it creates emotional proximity where facts create psychological distance.</p>
-<p>As researcher Julia Bentz found, traditional scientific methods "frequently catalyze psychological denial rather than fostering motivation." Art, by contrast, engages the imagination and the emotional core — making the crisis feel personal, urgent, and real.</p>
-</div>
-<div class="stat-stack reveal">
-<div class="stat-card">
-<div class="stat-num">97%</div>
-<div class="stat-label">of scientists agree on climate change — yet public concern remains dramatically lower than this consensus</div>
-</div>
-<div class="stat-card">
-<div class="stat-num">900</div>
-<div class="stat-label">participants in a study at the 2015 UN Climate Summit showed that art created stronger emotional responses than data presentations alone</div>
-</div>
-<div class="stat-card">
-<div class="stat-num">2 acres</div>
-<div class="stat-label">of wheat planted by artist Agnes Denes in 1982 on Manhattan land worth $1 billion — turning economic value into environmental statement</div>
-</div>
-</div>
-</div>
-</div>
-</section>
+<div class="spray-border"></div>
 
+<div class="section-wrap rust" id="action">
+  <div class="inner" style="text-align:center;">
+    <div class="label">Take Action</div>
+    <h2>So What Do We Do?</h2>
+    <p style="max-width:55ch; margin:0 auto 2rem;">If art is really this powerful then engaging with it and supporting it is itself a form of climate action. Here are three things anyone can do.</p>
+    <div class="action-steps">
+      <div class="step"><span class="step-num">01</span>Seek out climate art in your city, murals, installations, exhibitions. Pay attention to what you feel not just what you learn.</div>
+      <div class="step"><span class="step-num">02</span>Support artists doing this work. Follow them, share their work, buy prints if you can. Artists cannot create without an audience.</div>
+      <div class="step"><span class="step-num">03</span>Make something yourself. A drawing, a poem, a playlist. If it helps you process your feelings about climate change its doing the work.</div>
+    </div>
+  </div>
+</div>
 
-<!-- ARTISTS -->
-<section class="artists" id="artists">
-<div class="container">
-<div class="section-label">Artists as Activists</div>
-<h2 class="section-title reveal">The Voices That Made Me Listen</h2>
-<p class="artists-intro reveal">These are three artists I kept returning to throughout my research — each using a completely different medium, but all doing the same thing: making climate change impossible to ignore.</p>
-<div class="artist-grid reveal">
-<div class="artist-card">
-<span class="artist-icon">🎨</span>
-<div class="artist-name">Banksy</div>
-<div class="artist-tag">Street Art · Anonymity · Irony</div>
-<p class="artist-desc">Banksy places his murals directly inside the environments they critique — a polluted building, a war-torn wall. The art doesn't ask for your attention in a gallery. It ambushes you in your daily life. His use of irony forces even a passing glance to become a moment of reckoning with something uncomfortable.</p>
-</div>
-<div class="artist-card">
-<span class="artist-icon">🎵</span>
-<div class="artist-name">Billie Eilish</div>
-<div class="artist-tag">Music · Youth Voice · Emotional Resonance</div>
-<p class="artist-desc">Eilish brings environmental advocacy into spaces where young people already are — concerts, streaming platforms, social media. Her music doesn't lecture; it expresses grief, urgency, and love for the natural world. For a generation that grew up with climate anxiety, her voice is a mirror.</p>
-</div>
-<div class="artist-card">
-<span class="artist-icon">🌾</span>
-<div class="artist-name">Agnes Denes</div>
-<div class="artist-tag">Land Art · Scale · Protest</div>
-<p class="artist-desc">In 1982, Denes planted two acres of wheat on a Manhattan lot worth a billion dollars. The juxtaposition was the point — nature reclaiming economic space, asking what we value and why. Decades later, the piece is still discussed. That's the staying power of art as argument.</p>
-</div>
-</div>
-</div>
-</section>
+<div class="spray-border"></div>
 
+<div class="section-wrap dark" id="sources">
+  <div class="inner">
+    <div class="label">Works Cited</div>
+    <h2>Sources</h2>
+    <div class="cite-list">
+      <div class="cite-item">
+        <p><strong>Bentz, Julia.</strong> "Learning about Climate Change in, with and through Art." Climatic Change, vol. 162, 2020, pp. 1085-1101. Springer Nature Link, https://link.springer.com/article/10.1007/s10584-020-02804-4</p>
+      </div>
+      <div class="cite-item">
+        <p><strong>Sommer, Lena K., and Christian A. Klockner.</strong> "Does Activist Art Have the Capacity to Raise Awareness in Audiences? A Study on Climate Change Art at the ArtCOP21 Event in Paris." Psychology of Aesthetics, Creativity, and the Arts, vol. 15, no. 1, 2021, pp. 60-73. PMC, https://pmc.ncbi.nlm.nih.gov/articles/PMC7894892/</p>
+      </div>
+      <div class="cite-item">
+        <p><strong>Lescaze, Zoe.</strong> "Climate Change Through Art's Lens: Edgy Global Exhibits with an Eco Twist." Newsweek, 22 Feb. 2023, https://www.newsweek.com/2023/03/10/climate-change-through-arts-lens-edgy-global-exhibits-eco-twist-1781792.html</p>
+      </div>
+      <div class="cite-item">
+        <p><strong>Kimmerer, Robin Wall.</strong> "Asters and Goldenrod." Braiding Sweetgrass: Indigenous Wisdom, Scientific Knowledge and the Teachings of Plants, Milkweed Editions, 2013, pp. 39-47.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- PULLQUOTE -->
-<section class="pullquote-section">
-<div class="pullquote reveal">
-<blockquote>"Art is more than decoration. It is a form of communication that works on a level that facts and figures simply cannot reach."</blockquote>
-<cite>— Khushdeep Bhatti, Narrative Reflective Bibliography</cite>
-</div>
-</section>
-
-
-<!-- RESEARCH -->
-<section class="research" id="research">
-<div class="container">
-<div class="section-label">What the Research Says</div>
-<h2 class="section-title reveal">Four Sources That Shaped My Thinking</h2>
-<p class="research-intro reveal">These are the texts I found most useful — each one adds a different dimension to the central question of whether art can actually change how people feel and act around climate change.</p>
-<div class="source-list reveal">
-<div class="source-card">
-<div class="source-num">01</div>
-<div class="source-title">Learning about Climate Change in, with and through Art</div>
-<div class="source-author">Julia Bentz · Climatic Change, 2020</div>
-<p class="source-body">This was the most directly useful source for me. Bentz conducted research with high school students in Portugal and found that engaging with climate change through art created genuine personal connection to the crisis — something that purely scientific presentations failed to do. The key insight: art stimulates imagination and emotional response, creating not just awareness but a sense of responsibility and even hope. This confirmed what I had been trying to articulate — art doesn't just inform, it bridges the emotional gap.</p>
-</div>
-<div class="source-card">
-<div class="source-num">02</div>
-<div class="source-title">Does Activist Art Have the Capacity to Raise Awareness?</div>
-<div class="source-author">Sommer & Klöckner · Psychology of Aesthetics, 2021</div>
-<p class="source-body">This study surveyed nearly 900 people at the ArtCOP21 event during the 2015 UN Climate Summit in Paris — 37 different art events. The findings showed art created immediate emotional reactions and cognitive reflection. Interestingly, even negative emotional reactions led to stronger subsequent reflection on climate issues. This suggests that art doesn't need to make people feel good to be effective — it just needs to make them feel <em>something</em>.</p>
-</div>
-<div class="source-card">
-<div class="source-num">03</div>
-<div class="source-title">How the Climate Museum Hopes Art Will Spur Action</div>
-<div class="source-author">Arwa Damon · TIME, 2024</div>
-<p class="source-body">The Climate Museum in New York City is built entirely around this idea — that art can move people toward civic action in ways science communication cannot. Their interactive installations place the viewer inside the problem, making them physically part of the solution. What struck me most is how the museum director describes stripping away statistics to create "a smooth transition from facts to feeling." That phrase perfectly captures the transformation I've been researching throughout this project.</p>
-</div>
-<div class="source-card">
-<div class="source-num">04</div>
-<div class="source-title">Asters and Goldenrod</div>
-<div class="source-author">Robin Wall Kimmerer · Braiding Sweetgrass, 2013</div>
-<p class="source-body">Kimmerer's essay came at this from a completely different angle — indigenous wisdom and the idea that beauty itself is a form of knowledge. She argues that scientific training often teaches us to suppress the aesthetic and emotional response to nature. Her work reminded me that the disconnect between people and climate change isn't just a communication problem — it's a deeper disconnection from nature itself. Art might be one of the few things that can restore that relationship.</p>
-</div>
-</div>
-</div>
-</section>
-
-
-<!-- REFLECTION -->
-<section class="reflection" id="reflection">
-<div class="container">
-<div class="section-label">Personal Reflection</div>
-<h2 class="section-title reveal">What I Actually Think</h2>
-<div class="reflection-grid">
-<div class="reflection-body reveal">
-<p>I started this project with a simple observation: I've seen plenty of climate data and felt very little. But I've also seen a Banksy mural online and felt genuinely unsettled for hours afterward. That gap — between knowing and feeling — is what I wanted to understand.</p>
-<p>What surprised me most in my research is that this isn't just a personal quirk. It's a documented psychological phenomenon. Scientific communication, paradoxically, can trigger defensiveness and denial rather than motivation. Art bypasses that defense. It doesn't argue — it makes you experience.</p>
-<p>I also think about how climate change doesn't affect everyone equally — and how art is one of the few mediums that actually tells those unequal stories. A mural in a neighborhood already dealing with pollution is a completely different act than a gallery exhibition in a wealthy city. The location of art is part of its argument.</p>
-<p>The question I still sit with: does this actually change behavior, or does it only change feelings? My honest answer is — I'm not sure. But I think changing feelings is the necessary first step. You can't act on something you don't care about. And right now, too many people don't care enough.</p>
-</div>
-<div class="reflection-callouts reveal">
-<div class="callout">
-<p class="callout-q">"Does art actually lead to action, or only to awareness?"</p>
-<p class="callout-a">The research suggests both — art creates emotional states that prime people for reflection, and reflection is the precursor to behavior change.</p>
-</div>
-<div class="callout">
-<p class="callout-q">"Why does a song hit differently than a statistic?"</p>
-<p class="callout-a">Music, like all art, creates personal connection. It makes you feel like the issue belongs to you — not to scientists, not to politicians, but to you personally.</p>
-</div>
-<div class="callout">
-<p class="callout-q">"Is this the most important use of art right now?"</p>
-<p class="callout-a">I think so. In an era of information overload, the scarcest resource isn't data — it's genuine emotional engagement. Art is one of the few things that can still produce it.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-
-<!-- ACTION -->
-<section class="action" id="action">
-<div class="container">
-<h2 class="section-title reveal">So What Do We Do?</h2>
-<p class="action-body reveal">If art is really this powerful, then engaging with it — and supporting it — is itself a form of climate action. Here are three things anyone can do.</p>
-<div class="action-steps reveal">
-<div class="action-step">
-<span class="action-step-num">01</span>
-Seek out climate art in your city — murals, installations, exhibitions. Pay attention to what you feel, not just what you learn.
-</div>
-<div class="action-step">
-<span class="action-step-num">02</span>
-Support artists who are doing this work. Follow them, share their work, buy prints if you can. Artists can't create without an audience.
-</div>
-<div class="action-step">
-<span class="action-step-num">03</span>
-Make something yourself. You don't have to be Banksy. A drawing, a poem, a playlist — if it helps you process your feelings about climate change, it's doing the work.
-</div>
-</div>
-</div>
-</section>
-
-
-<!-- FOOTER -->
 <footer>
-<div class="footer-name">Khushdeep Bhatti</div>
-<div class="footer-class">COMP 106 · Jill Darling · April 2026 · Humanities, Art & Activism</div>
+  <div class="name">Khushdeep Bhatti</div>
+  <div class="class">COMP 106 · Jill Darling · April 2026 · Humanities, Art & Activism</div>
 </footer>
 
-
-<script>
-// Scroll reveal
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-entries.forEach((entry, i) => {
-if (entry.isIntersecting) {
-setTimeout(() => {
-entry.target.classList.add('visible');
-}, 80);
-observer.unobserve(entry.target);
-}
-});
-}, { threshold: 0.1 });
-reveals.forEach(el => observer.observe(el));
-</script>
 </body>
 </html>
-
-
-
-
